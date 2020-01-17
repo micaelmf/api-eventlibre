@@ -26,6 +26,7 @@ class CreateTableEvents extends Migration
             $table->date('data_end_event');
             $table->date('data_start_registrations');
             $table->date('data_end_registrations');
+<<<<<<< HEAD
             $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
             
@@ -33,6 +34,16 @@ class CreateTableEvents extends Migration
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
+=======
+            
+            //event creator user
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+
+            $table->timestamps();
+>>>>>>> dcb4ac0fd92195495bef9dc428acd5ab46fcd18b
         });
     }
 

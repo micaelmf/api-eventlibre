@@ -22,10 +22,18 @@ class Activity extends Model
     }
 
     /**
+<<<<<<< HEAD
      * Get the speaker that owns the activity.
      */
     public function speaker()
     {
         return $this->hasOne(Speaker::class);
+=======
+     * Get the speaker that owns the comment.
+     */
+    public function speaker()
+    {
+        return $this->belongsTo(Speaker::class);
+>>>>>>> dcb4ac0fd92195495bef9dc428acd5ab46fcd18b
     }
 }
