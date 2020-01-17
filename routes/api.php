@@ -28,18 +28,20 @@ Route::namespace('Api')->name('api.')->group(function(){
 
 Route::namespace('Api')->name('api.')->group(function(){
     Route::prefix('events')->group(function(){
-        // GET
         Route::get('/', 'EventController@index')->name('index_events');
         Route::get('/{id}', 'EventController@show')->name('single_event');
-        
-        // POST
         Route::post('/', 'EventController@store')->name('store_event');
-        
-        // PUT
         Route::put('/{id}', 'EventController@update')->name('update_event');
-        
-        //DELETE
         Route::delete('/{id}', 'EventController@destroy')->name('destroy_event');
+    });
+});
 
+Route::namespace('Api')->name('api.')->group(function(){
+    Route::prefix('users')->group(function(){
+        Route::get('/', 'UserController@index')->name('index_users');
+        Route::get('/{id}', 'UserController@show')->name('single_user');
+        Route::post('/', 'UserController@store')->name('store_user');
+        Route::put('/{id}', 'UserController@update')->name('update_user');
+        Route::delete('/{id}', 'UserController@destroy')->name('destroy_user');
     });
 });
