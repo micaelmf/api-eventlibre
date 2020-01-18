@@ -45,3 +45,13 @@ Route::namespace('Api')->name('api.')->group(function(){
         Route::delete('/{id}', 'UserController@destroy')->name('destroy_user');
     });
 });
+
+Route::namespace('Api')->name('api.')->group(function(){
+    Route::prefix('activities')->group(function(){
+        Route::get('/', 'ActivityController@index')->name('index_Activities');
+        Route::get('/{id}', 'ActivityController@show')->name('single_Activity');
+        Route::post('/', 'ActivityController@store')->name('store_Activity');
+        Route::put('/{id}', 'ActivityController@update')->name('update_Activity');
+        Route::delete('/{id}', 'ActivityController@destroy')->name('destroy_Activity');
+    });
+});

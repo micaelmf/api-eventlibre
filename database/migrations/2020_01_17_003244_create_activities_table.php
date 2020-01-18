@@ -18,10 +18,11 @@ class CreateActivitiesTable extends Migration
             $table->string('name');
             $table->string('type');
             $table->string('durations');
-            $table->string('description');
-            $table->string('level');
-            $table->string('place');
-            $table->string('archive');
+            $table->string('description')->nullable();
+            $table->string('level')->nullable();
+            $table->string('local');
+            $table->string('space')->nullable();
+            $table->string('archive')->nullable();
             $table->string('status');
             $table->bigInteger('event_id')->unsigned();
             $table->bigInteger('speaker_id')->unsigned();
