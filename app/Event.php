@@ -65,4 +65,12 @@ class Event extends Model
     {
         return $this->belongsToMany(Participant::class);
     }
+
+    /**
+     * Get the address of event.
+     */
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
 }

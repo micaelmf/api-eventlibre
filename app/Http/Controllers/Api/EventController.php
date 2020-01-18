@@ -70,7 +70,7 @@ class EventController extends Controller
     public function show($id)
     {
         //$event = Event::with('user')->find($id);
-        $event = $this->event::with(['user', 'participants', 'sponsors'])->find($id);
+        $event = $this->event::with(['user', 'participants', 'sponsors', 'address'])->find($id);
         
         if(!$event){
             return response()->json(ApiError::errorMessage('Evento não encontrado', 04), 404);
