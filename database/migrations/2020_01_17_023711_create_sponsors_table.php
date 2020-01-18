@@ -18,12 +18,12 @@ class CreateSponsorsTable extends Migration
             $table->string('name');
             $table->string('type');
             $table->string('image');
-            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('event_id')->unsigned();
             $table->timestamps();
             
             //event
-            $table->foreign('user_id')
-                ->references('id')->on('users')
+            $table->foreign('event_id')
+                ->references('id')->on('events')
                 ->onDelete('cascade');
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEventHasSpeakerTable extends Migration
+class CreateEventParticipantTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateEventHasSpeakerTable extends Migration
      */
     public function up()
     {
-        Schema::create('event_has_speaker', function (Blueprint $table) {
+        Schema::create('event_participant', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedbigInteger('event_id');
-            $table->unsignedbigInteger('speaker_id');
+            $table->unsignedbigInteger('participant_id');
 
             $table->foreign('event_id')
                 ->references('id')->on('events')
                 ->onDelete('cascade');
             
-            $table->foreign('speaker_id')
-                ->references('id')->on('speakers')
+            $table->foreign('participant_id')
+                ->references('id')->on('participants')
                 ->onDelete('cascade');
         });
     }
@@ -35,6 +35,6 @@ class CreateEventHasSpeakerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_has_speaker');
+        Schema::dropIfExists('event_participant');
     }
 }
