@@ -23,6 +23,7 @@ class Event extends Model
         'data_end_event',
         'data_start_registrations',
         'data_end_registrations',
+        'user_id'
     ];
 
     /**
