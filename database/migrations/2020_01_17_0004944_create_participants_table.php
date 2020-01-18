@@ -17,7 +17,7 @@ class CreateParticipantsTable extends Migration
             $table->bigIncrements('id');
             $table->string('fullname');
             $table->string('nickname');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

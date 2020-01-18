@@ -19,20 +19,26 @@ class CreateEventsTable extends Migration
             $table->string('about');
             $table->string('period');
             $table->string('image');
-            $table->string('link_photos');
-            $table->string('link_registrations');
+            $table->string('link_photos')->nullable();
+            $table->string('link_registrations')->nullable();
             $table->string('edition');
             $table->date('data_start_event');
-            $table->date('data_end_event');
+            $table->date('data_end_event')->nullable();
             $table->date('data_start_registrations');
-            $table->date('data_end_registrations');
+            $table->date('data_end_registrations')->nullable();
             $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('address_id')->unsigned();
             $table->timestamps();
             
             //event creator user
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
+
+            //address of event
+            $table->foreign('address_id')
+                ->references('id')->on('addresses')
+                ->onDelete('cascade'); 
         });
     }
 
