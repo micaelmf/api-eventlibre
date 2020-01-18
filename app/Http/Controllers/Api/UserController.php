@@ -66,7 +66,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = $this->user->find($id);
+        $user = $this->user::with(['events'])->find($id);
         
         if(!$user){
             return response()->json(ApiError::errorMessage('Usuário não encontrado', 04), 404);
