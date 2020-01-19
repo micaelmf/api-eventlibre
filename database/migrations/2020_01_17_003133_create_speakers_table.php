@@ -26,7 +26,13 @@ class CreateSpeakersTable extends Migration
             $table->string('link_twitter')->nullable();
             $table->string('link_facebook')->nullable();
             $table->string('link_youtube')->nullable();
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
+
+            //user of speaker
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 
