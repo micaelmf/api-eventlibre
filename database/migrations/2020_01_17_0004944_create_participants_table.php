@@ -18,7 +18,13 @@ class CreateParticipantsTable extends Migration
             $table->string('fullname');
             $table->string('nickname');
             $table->string('photo')->nullable();
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
+
+            //user of participant
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 

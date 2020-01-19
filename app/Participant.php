@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Participant extends Model
 {
+    protected $fillable = [
+        'fullname',
+        'nickname',
+        'photo',
+        'user_id'
+    ];
+
     /**
      * Activities belonging to an participant.
      */
@@ -22,5 +29,13 @@ class Participant extends Model
     public function events()
     {
         return $this->belongsToMany(Event::class);
+    }
+
+    /**
+     * Get the user of participant.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
