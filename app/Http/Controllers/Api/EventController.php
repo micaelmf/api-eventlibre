@@ -57,7 +57,7 @@ class EventController extends Controller
             if (config('app.debug')) {
                 return response()->json(ApiError::errorMessage($e->getMessage(), 01), 500);
             }
-            return response()->json(ApiError::errorMessage('Wtf', 01), 500);
+            return response()->json(ApiError::errorMessage('Erro Interno', 01), 500);
         }
     }
 
@@ -112,7 +112,7 @@ class EventController extends Controller
             if (config('app.debug')) {
                 return response()->json(ApiError::errorMessage($e->getMessage(), 02), 500);
             }
-            return response()->json(ApiError::errorMessage('Wtf', 02), 500);
+            return response()->json(ApiError::errorMessage('Erro Interno', 02), 500);
         }
     }
 
@@ -132,7 +132,7 @@ class EventController extends Controller
             if (config('app.debug')) {
                 return response()->json(ApiError::errorMessage($e->getMessage(), 03), 500);
             }
-            return response()->json(ApiError::errorMessage('Wtf', 03), 500);
+            return response()->json(ApiError::errorMessage('Erro Interno', 03), 500);
         }
     }
 }
