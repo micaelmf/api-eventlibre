@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Activity;
 use App\api\ApiError;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ActivityController extends Controller
 {
+    public function __construct(Activity $activity)
+    {
+        $this->activity = $activity;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -60,12 +66,12 @@ class ActivityController extends Controller
      */
     public function show($id)
     {
-        $activity = $this->activity::with(['participants'])->find($id);
+        $activity = $this->activity::with(['participants', 'speaker', 'event'])->find($id);
         
         if(!$activity){
             return response()->json(ApiError::errorMessage('Atividade não encontrada', 04), 404);
         }
-
+        $activity = collect($activity)->except(['event_id', 'speaker_id']);
         $data = ['data' => $activity];
         return response()->json($data);
     }
