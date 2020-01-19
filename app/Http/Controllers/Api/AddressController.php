@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Address;
+use App\api\ApiError;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AddressController extends Controller
 {
+    public function __construct(Address $address)
+    {
+        $this->address = $address;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,8 @@ class AddressController extends Controller
      */
     public function index()
     {
-        //
+        $data = ['data' => $this->address->all()];
+        return response()->json($data);
     }
 
     /**
@@ -35,7 +43,19 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $addressData = $request->all();
+            $this->address->create($addressData);
+
+            $return = ['data' => ['msg' => 'Endereço criado com sucesso!']];
+
+            return response()->json($return, 201);
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                return response()->json(ApiError::errorMessage($e->getMessage(), 01), 500);
+            }
+            return response()->json(ApiError::errorMessage('Erro interno', 01), 500);
+        }
     }
 
     /**
@@ -46,7 +66,15 @@ class AddressController extends Controller
      */
     public function show($id)
     {
-        //
+        $address = $this->address::with(['events'])->find($id);
+        
+        if(!$address){
+            return response()->json(ApiError::errorMessage('Endereço não encontrado', 04), 404);
+        }
+
+        $address = collect($address)->except(['user_id']);
+        $data = ['data' => $address];
+        return response()->json($data);
     }
 
     /**
@@ -69,7 +97,19 @@ class AddressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $addressData = $request->all();
+            $address = $this->address->find($id);
+            $address->update($addressData);
+            $return = ['data' => ['msg' => 'Endereço atualizado com sucesso!']];
+
+            return response()->json($return, 201);
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                return response()->json(ApiError::errorMessage($e->getMessage(), 02), 500);
+            }
+            return response()->json(ApiError::errorMessage('Erro interno', 02), 500);
+        }
     }
 
     /**
@@ -80,6 +120,15 @@ class AddressController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $id->delete();
+
+            return response()->json(['data' => ['msg' => 'Endereço: ' . $id->name . ' removido com sucesso!']], 200);
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                return response()->json(ApiError::errorMessage($e->getMessage(), 03), 500);
+            }
+            return response()->json(ApiError::errorMessage('Erro interno', 03), 500);
+        }
     }
 }
