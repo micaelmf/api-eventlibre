@@ -82,6 +82,47 @@ class EventController extends Controller
     }
 
     /**
+     * Display the list of spopnsors for a specified event.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function allSponsorsOfEvent($id)
+    {
+        $event = $this->event::with(['sponsors'])->find($id);
+        $event = $event->sponsors;
+        
+        if(!$event){
+            return response()->json(ApiError::errorMessage('Evento não encontrado', 04), 404);
+        }
+
+        $data = ['data' => $event];
+        return response()->json($data);
+    }
+
+    /**
+     * Display the sponsor for a specified event.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function singleSponsorOfEvent($event_id, $sponsor_id)
+    {
+        try{
+            $event = $this->event::with(['sponsors'])->find($event_id);
+            $sponsor = $event->sponsors->find($sponsor_id);
+            $data = ['data' => $sponsor];
+            return response()->json($data, 200);
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                return response()->json(ApiError::errorMessage($e->getMessage(), 1001), 500);
+            }
+            return response()->json(ApiError::errorMessage('Usuário e Evento não existem ou não estão relacionados', 13), 500);
+        }
+
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
