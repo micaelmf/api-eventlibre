@@ -43,6 +43,8 @@ Route::namespace('Api')->name('api.')->group(function(){
     Route::prefix('users')->group(function(){
         Route::get('/', 'UserController@index')->name('index_users');
         Route::get('/{id}', 'UserController@show')->name('single_user');
+        Route::get('/{id}/events', 'UserController@allEventsOfUser')->name('user_events');
+        Route::get('/{user_id}/events/{event_id}', 'UserController@singleEventOfUser')->name('user_events_single');
         Route::post('/', 'UserController@store')->name('store_user');
         Route::put('/{id}', 'UserController@update')->name('update_user');
         Route::delete('/{id}', 'UserController@destroy')->name('destroy_user');
