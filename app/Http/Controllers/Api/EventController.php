@@ -123,6 +123,50 @@ class EventController extends Controller
     }
 
     /**
+     * Display the address for a specified event.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function addressOfEvent($id)
+    {
+        try{
+            $event = $this->event::with(['address'])->find($id);
+            $address = $event->address;
+            $data = ['data' => $address];
+            return response()->json($data, 200);
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                return response()->json(ApiError::errorMessage($e->getMessage(), 1001), 500);
+            }
+            return response()->json(ApiError::errorMessage('Usuário e Evento não existem ou não estão relacionados', 13), 500);
+        }
+
+    }
+
+    /**
+     * Display the list of participants for a specified event.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function allParticipantsOfEvent($id)
+    {
+        try{
+            $event = $this->event::with(['participants'])->find($id);
+            $participants = $event->participants;
+            $data = ['data' => $participants];
+            return response()->json($data, 200);
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                return response()->json(ApiError::errorMessage($e->getMessage(), 1001), 500);
+            }
+            return response()->json(ApiError::errorMessage('Usuário e Evento não existem ou não estão relacionados', 13), 500);
+        }
+
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

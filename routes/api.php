@@ -23,6 +23,8 @@ Route::namespace('Api')->name('api.')->group(function(){
     Route::prefix('events')->group(function(){
         Route::get('/', 'EventController@index')->name('index_events');
         Route::get('/{id}', 'EventController@show')->name('single_event');
+        Route::get('/{id}/address', 'EventController@addressOfEvent')->name('event_address');
+        Route::get('/{id}/participants', 'EventController@allParticipantsOfEvent')->name('event_participants');
         Route::get('/{id}/sponsors', 'EventController@allSponsorsOfEvent')->name('event_all_sponsors');
         Route::get('/{event_id}/sponsors/{sponsor_id}', 'EventController@singleSponsorOfEvent')->name('event_single_sponsor');
         Route::post('/', 'EventController@store')->name('store_event');
