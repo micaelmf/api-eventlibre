@@ -20,7 +20,7 @@ class Participant extends Model
      */
     public function activities()
     {
-        return $this->belongsToMany(Activity::class);
+        return $this->belongsToMany(Activity::class, 'activity_participant');
     }
 
     /**
@@ -28,7 +28,7 @@ class Participant extends Model
      */
     public function events()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class, 'event_participant');
     }
 
     /**
