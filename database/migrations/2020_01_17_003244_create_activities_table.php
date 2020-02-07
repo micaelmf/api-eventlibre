@@ -17,7 +17,9 @@ class CreateActivitiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('type');
-            $table->string('durations');
+            $table->time('duration');
+            $table->date('date');
+            $table->time('hour');
             $table->string('description')->nullable();
             $table->string('level')->nullable();
             $table->string('local');
