@@ -32,7 +32,7 @@ class Activity extends Model
      */
     public function participants()
     {
-        return $this->belongsToMany(Participant::class);
+        return $this->belongsToMany(Participant::class, 'activity_participant');
     }
 
     /**

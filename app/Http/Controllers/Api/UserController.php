@@ -77,6 +77,47 @@ class UserController extends Controller
     }
 
     /**
+     * Display the list of events for a specified user.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function allEventsOfUser($id)
+    {
+        $user = $this->user::with(['events'])->find($id);
+        $user = $user->events;
+        
+        if(!$user){
+            return response()->json(ApiError::errorMessage('Usuário não encontrado', 04), 404);
+        }
+
+        $data = ['data' => $user];
+        return response()->json($data);
+    }
+
+    /**
+     * Display the event for a specified user.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function singleEventOfUser($user_id, $event_id)
+    {
+        try{
+            $user = $this->user::with(['events'])->find($user_id);
+            $event = $user->events->find($event_id);
+            $data = ['data' => $event];
+            return response()->json($data, 200);
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                return response()->json(ApiError::errorMessage($e->getMessage(), 1001), 500);
+            }
+            return response()->json(ApiError::errorMessage('Usuário e Evento não existem ou não estão relacionados', 13), 500);
+        }
+
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

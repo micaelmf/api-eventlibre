@@ -22,10 +22,10 @@ class CreateEventsTable extends Migration
             $table->string('link_photos')->nullable();
             $table->string('link_registrations')->nullable();
             $table->string('edition');
-            $table->date('data_start_event');
-            $table->date('data_end_event')->nullable();
-            $table->date('data_start_registrations');
-            $table->date('data_end_registrations')->nullable();
+            $table->date('date_start_event');
+            $table->date('date_end_event')->nullable();
+            $table->date('date_start_registrations');
+            $table->date('date_end_registrations')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('address_id')->unsigned();
             $table->timestamps();

@@ -23,6 +23,10 @@ Route::namespace('Api')->name('api.')->group(function(){
     Route::prefix('events')->group(function(){
         Route::get('/', 'EventController@index')->name('index_events');
         Route::get('/{id}', 'EventController@show')->name('single_event');
+        Route::get('/{id}/address', 'EventController@addressOfEvent')->name('event_address');
+        Route::get('/{id}/participants', 'EventController@allParticipantsOfEvent')->name('event_participants');
+        Route::get('/{id}/sponsors', 'EventController@allSponsorsOfEvent')->name('event_all_sponsors');
+        Route::get('/{event_id}/sponsors/{sponsor_id}', 'EventController@singleSponsorOfEvent')->name('event_single_sponsor');
         Route::post('/', 'EventController@store')->name('store_event');
         Route::put('/{id}', 'EventController@update')->name('update_event');
         Route::delete('/{id}', 'EventController@destroy')->name('destroy_event');
@@ -43,6 +47,8 @@ Route::namespace('Api')->name('api.')->group(function(){
     Route::prefix('users')->group(function(){
         Route::get('/', 'UserController@index')->name('index_users');
         Route::get('/{id}', 'UserController@show')->name('single_user');
+        Route::get('/{id}/events', 'UserController@allEventsOfUser')->name('user_events');
+        Route::get('/{user_id}/events/{event_id}', 'UserController@singleEventOfUser')->name('user_events_single');
         Route::post('/', 'UserController@store')->name('store_user');
         Route::put('/{id}', 'UserController@update')->name('update_user');
         Route::delete('/{id}', 'UserController@destroy')->name('destroy_user');
