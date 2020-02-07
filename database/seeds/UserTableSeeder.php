@@ -1,9 +1,9 @@
 <?php
 
-use App\Event;
+use App\User;
 use Illuminate\Database\Seeder;
 
-class EventTbaleSeeder extends Seeder
+class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class EventTbaleSeeder extends Seeder
      */
     public function run()
     {
-        factory(Event::class, 3)->create();
+        factory(User::class, 420)->create();
     }
 }
