@@ -21,7 +21,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $data = $this->address->all();
+        $data = $this->address::with(['events'])->get();
         return response()->json($data);
     }
 
@@ -101,7 +101,7 @@ class AddressController extends Controller
             $addressData = $request->all();
             $address = $this->address->find($id);
             $address->update($addressData);
-            $return = 'msg' => 'Endereço atualizado com sucesso!'];
+            $return = ['msg' => 'Endereço atualizado com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {

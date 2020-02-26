@@ -20,7 +20,7 @@ class SponsorController extends Controller
      */
     public function index()
     {
-        $data = $this->sponsor->all();
+        $data = $this->sponsor::with(['event'])->get();
         return response()->json($data);
     }
 

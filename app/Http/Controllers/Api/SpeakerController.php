@@ -21,7 +21,7 @@ class SpeakerController extends Controller
      */
     public function index()
     {
-        $data = $this->speaker->all();
+        $data = $this->speaker::with(['activities', 'events', 'user'])->get();
         return response()->json($data);
     }
 

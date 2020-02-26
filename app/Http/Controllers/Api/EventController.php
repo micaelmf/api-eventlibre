@@ -24,7 +24,7 @@ class EventController extends Controller
     {
         //return response()->json($this->event->paginate(5));
         
-        $data = $this->event->all();
+        $data = $this->event::with(['user', 'participants', 'sponsors', 'address'])->get();
         return response()->json($data);
     }
 

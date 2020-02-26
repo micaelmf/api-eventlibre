@@ -21,7 +21,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $data = $this->activity->all();
+        $data = $this->activity::with(['participants', 'speaker', 'event'])->get();
         return response()->json($data);
     }
 
