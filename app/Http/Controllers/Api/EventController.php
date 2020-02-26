@@ -24,7 +24,7 @@ class EventController extends Controller
     {
         //return response()->json($this->event->paginate(5));
         
-        $data = ['data' => $this->event->all()];
+        $data = $this->event->all();
         return response()->json($data);
     }
 
@@ -50,7 +50,7 @@ class EventController extends Controller
             $eventData = $request->all();
             $this->event->create($eventData);
 
-            $return = ['data' => ['msg' => 'Evento criado com sucesso!']];
+            $return = ['msg' => 'Evento criado com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {
@@ -77,7 +77,7 @@ class EventController extends Controller
         }
 
         $event = collect($event)->except(['user_id']);
-        $data = ['data' => $event];
+        $data = $event;
         return response()->json($data);
     }
 
@@ -96,7 +96,7 @@ class EventController extends Controller
             return response()->json(ApiError::errorMessage('Evento não encontrado', 04), 404);
         }
 
-        $data = ['data' => $event];
+        $data = $event;
         return response()->json($data);
     }
 
@@ -111,7 +111,7 @@ class EventController extends Controller
         try{
             $event = $this->event::with(['sponsors'])->find($event_id);
             $sponsor = $event->sponsors->find($sponsor_id);
-            $data = ['data' => $sponsor];
+            $data = $sponsor;
             return response()->json($data, 200);
         } catch (\Exception $e) {
             if (config('app.debug')) {
@@ -133,7 +133,7 @@ class EventController extends Controller
         try{
             $event = $this->event::with(['address'])->find($id);
             $address = $event->address;
-            $data = ['data' => $address];
+            $data = $address;
             return response()->json($data, 200);
         } catch (\Exception $e) {
             if (config('app.debug')) {
@@ -155,7 +155,7 @@ class EventController extends Controller
         try{
             $event = $this->event::with(['participants'])->find($id);
             $participants = $event->participants;
-            $data = ['data' => $participants];
+            $data = $participants;
             return response()->json($data, 200);
         } catch (\Exception $e) {
             if (config('app.debug')) {
@@ -212,7 +212,7 @@ class EventController extends Controller
         try{
             $id->delete();
 
-            return response()->json(['data' => ['msg' => 'Evento: ' . $id->name . ' removido com sucesso!']], 200);
+            return response()->json(['msg' => 'Evento: ' . $id->name . ' removido com sucesso!'], 200);
         } catch (\Exception $e) {
             if (config('app.debug')) {
                 return response()->json(ApiError::errorMessage($e->getMessage(), 03), 500);

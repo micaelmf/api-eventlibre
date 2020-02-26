@@ -21,7 +21,7 @@ class ParticipantController extends Controller
      */
     public function index()
     {
-        $data = ['data' => $this->participant->all()];
+        $data = $this->participant->all();
         return response()->json($data);
     }
 
@@ -47,7 +47,7 @@ class ParticipantController extends Controller
             $participantData = $request->all();
             $this->participant->create($participantData);
 
-            $return = ['data' => ['msg' => 'Participante criado com sucesso!']];
+            $return = ['msg' => 'Participante criado com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {
@@ -73,7 +73,7 @@ class ParticipantController extends Controller
         }
 
         $participant = collect($participant)->except(['user_id']);
-        $data = ['data' => $participant];
+        $data = $participant;
         return response()->json($data);
     }
 
@@ -101,7 +101,7 @@ class ParticipantController extends Controller
             $participantData = $request->all();
             $participant = $this->participant->find($id);
             $participant->update($participantData);
-            $return = ['data' => ['msg' => 'Participante atualizado com sucesso!']];
+            $return = ['msg' => 'Participante atualizado com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {
@@ -123,7 +123,7 @@ class ParticipantController extends Controller
         try{
             $id->delete();
 
-            return response()->json(['data' => ['msg' => 'Participante ' . $id->name . ' removido com sucesso!']], 200);
+            return response()->json(['msg' => 'Participante ' . $id->name . ' removido com sucesso!'], 200);
         } catch (\Exception $e) {
             if (config('app.debug')) {
                 return response()->json(ApiError::errorMessage($e->getMessage(), 03), 500);

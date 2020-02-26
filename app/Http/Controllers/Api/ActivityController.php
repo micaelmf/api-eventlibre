@@ -21,7 +21,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $data = ['data' => $this->activity->all()];
+        $data = $this->activity->all();
         return response()->json($data);
     }
 
@@ -47,7 +47,7 @@ class ActivityController extends Controller
             $activityData = $request->all();
             $this->activity->create($activityData);
 
-            $return = ['data' => ['msg' => 'Atividade criada com sucesso!']];
+            $return = ['msg' => 'Atividade criada com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {
@@ -72,7 +72,7 @@ class ActivityController extends Controller
             return response()->json(ApiError::errorMessage('Atividade não encontrada', 04), 404);
         }
         $activity = collect($activity)->except(['event_id', 'speaker_id']);
-        $data = ['data' => $activity];
+        $data = $activity;
         return response()->json($data);
     }
 
@@ -100,7 +100,7 @@ class ActivityController extends Controller
             $activityData = $request->all();
             $activity = $this->activity->find($id);
             $activity->update($activityData);
-            $return = ['data' => ['msg' => 'Atividade atualizada com sucesso!']];
+            $return = ['msg' => 'Atividade atualizada com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {
@@ -122,7 +122,7 @@ class ActivityController extends Controller
         try{
             $id->delete();
 
-            return response()->json(['data' => ['msg' => 'Atividade ' . $id->name . ' removida com sucesso!']], 200);
+            return response()->json(['msg' => 'Atividade ' . $id->name . ' removida com sucesso!'], 200);
         } catch (\Exception $e) {
             if (config('app.debug')) {
                 return response()->json(ApiError::errorMessage($e->getMessage(), 03), 500);
