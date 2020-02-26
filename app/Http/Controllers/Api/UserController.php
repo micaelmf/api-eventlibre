@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = ['data' => $this->user->all()];
+        $data = $this->user->all();
         return response()->json($data);
     }
 
@@ -47,7 +47,7 @@ class UserController extends Controller
             $userData = $request->all();
             $this->user->create($userData);
 
-            $return = ['data' => ['msg' => 'Usuário criado com sucesso!']];
+            $return = ['msg' => 'Usuário criado com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {
@@ -72,7 +72,7 @@ class UserController extends Controller
             return response()->json(ApiError::errorMessage('Usuário não encontrado', 04), 404);
         }
 
-        $data = ['data' => $user];
+        $data = $user;
         return response()->json($data);
     }
 
@@ -91,7 +91,7 @@ class UserController extends Controller
             return response()->json(ApiError::errorMessage('Usuário não encontrado', 04), 404);
         }
 
-        $data = ['data' => $user];
+        $data = $user;
         return response()->json($data);
     }
 
@@ -106,7 +106,7 @@ class UserController extends Controller
         try{
             $user = $this->user::with(['events'])->find($user_id);
             $event = $user->events->find($event_id);
-            $data = ['data' => $event];
+            $data = $event;
             return response()->json($data, 200);
         } catch (\Exception $e) {
             if (config('app.debug')) {
@@ -141,7 +141,7 @@ class UserController extends Controller
             $userData = $request->all();
             $user = $this->user->find($id);
             $user->update($userData);
-            $return = ['data' => ['msg' => 'Usuário atualizado com sucesso!']];
+            $return = ['msg' => 'Usuário atualizado com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {
@@ -163,7 +163,7 @@ class UserController extends Controller
         try{
             $id->delete();
 
-            return response()->json(['data' => ['msg' => 'Usuário ' . $id->name . ' removido com sucesso!']], 200);
+            return response()->json(['msg' => 'Usuário ' . $id->name . ' removido com sucesso!'], 200);
         } catch (\Exception $e) {
             if (config('app.debug')) {
                 return response()->json(ApiError::errorMessage($e->getMessage(), 03), 500);

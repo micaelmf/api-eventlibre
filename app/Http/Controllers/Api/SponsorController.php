@@ -20,7 +20,7 @@ class SponsorController extends Controller
      */
     public function index()
     {
-        $data = ['data' => $this->sponsor->all()];
+        $data = $this->sponsor->all();
         return response()->json($data);
     }
 
@@ -46,7 +46,7 @@ class SponsorController extends Controller
             $sponsorData = $request->all();
             $this->sponsor->create($sponsorData);
 
-            $return = ['data' => ['msg' => 'Empresa criada com sucesso!']];
+            $return = ['msg' => 'Empresa criada com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {
@@ -72,7 +72,7 @@ class SponsorController extends Controller
         }
 
         $sponsor = collect($sponsor)->except(['event_id']);
-        $data = ['data' => $sponsor];
+        $data = $sponsor;
         return response()->json($data);
     }
 
@@ -100,7 +100,7 @@ class SponsorController extends Controller
             $sponsorData = $request->all();
             $sponsor = $this->sponsor->find($id);
             $sponsor->update($sponsorData);
-            $return = ['data' => ['msg' => 'Empresa atualizada com sucesso!']];
+            $return = ['msg' => 'Empresa atualizada com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {
@@ -122,7 +122,7 @@ class SponsorController extends Controller
         try{
             $id->delete();
 
-            return response()->json(['data' => ['msg' => 'Empresa ' . $id->name . ' removida com sucesso!']], 200);
+            return response()->json(['msg' => 'Empresa ' . $id->name . ' removida com sucesso!'], 200);
         } catch (\Exception $e) {
             if (config('app.debug')) {
                 return response()->json(ApiError::errorMessage($e->getMessage(), 03), 500);

@@ -21,7 +21,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $data = ['data' => $this->address->all()];
+        $data = $this->address->all();
         return response()->json($data);
     }
 
@@ -47,7 +47,7 @@ class AddressController extends Controller
             $addressData = $request->all();
             $this->address->create($addressData);
 
-            $return = ['data' => ['msg' => 'Endereço criado com sucesso!']];
+            $return = ['msg' => 'Endereço criado com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {
@@ -73,7 +73,7 @@ class AddressController extends Controller
         }
 
         $address = collect($address)->except(['user_id']);
-        $data = ['data' => $address];
+        $data = $address;
         return response()->json($data);
     }
 
@@ -101,7 +101,7 @@ class AddressController extends Controller
             $addressData = $request->all();
             $address = $this->address->find($id);
             $address->update($addressData);
-            $return = ['data' => ['msg' => 'Endereço atualizado com sucesso!']];
+            $return = 'msg' => 'Endereço atualizado com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {
@@ -123,7 +123,7 @@ class AddressController extends Controller
         try{
             $id->delete();
 
-            return response()->json(['data' => ['msg' => 'Endereço: ' . $id->name . ' removido com sucesso!']], 200);
+            return response()->json(['msg' => 'Endereço: ' . $id->name . ' removido com sucesso!'], 200);
         } catch (\Exception $e) {
             if (config('app.debug')) {
                 return response()->json(ApiError::errorMessage($e->getMessage(), 03), 500);

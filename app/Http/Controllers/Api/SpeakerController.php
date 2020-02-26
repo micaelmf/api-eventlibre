@@ -21,7 +21,7 @@ class SpeakerController extends Controller
      */
     public function index()
     {
-        $data = ['data' => $this->speaker->all()];
+        $data = $this->speaker->all();
         return response()->json($data);
     }
 
@@ -47,7 +47,7 @@ class SpeakerController extends Controller
             $speakerData = $request->all();
             $this->speaker->create($speakerData);
 
-            $return = ['data' => ['msg' => 'Palestrante criado com sucesso!']];
+            $return = ['msg' => 'Palestrante criado com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {
@@ -73,7 +73,7 @@ class SpeakerController extends Controller
         }
 
         $speaker = collect($speaker)->except(['user_id']);
-        $data = ['data' => $speaker];
+        $data = $speaker;
         return response()->json($data);
     }
 
@@ -101,7 +101,7 @@ class SpeakerController extends Controller
             $speakerData = $request->all();
             $speaker = $this->speaker->find($id);
             $speaker->update($speakerData);
-            $return = ['data' => ['msg' => 'Palestrante atualizado com sucesso!']];
+            $return = ['msg' => 'Palestrante atualizado com sucesso!'];
 
             return response()->json($return, 201);
         } catch (\Exception $e) {
@@ -123,7 +123,7 @@ class SpeakerController extends Controller
         try{
             $id->delete();
 
-            return response()->json(['data' => ['msg' => 'Palestrante: ' . $id->name . ' removido com sucesso!']], 200);
+            return response()->json(['msg' => 'Palestrante: ' . $id->name . ' removido com sucesso!'], 200);
         } catch (\Exception $e) {
             if (config('app.debug')) {
                 return response()->json(ApiError::errorMessage($e->getMessage(), 03), 500);
