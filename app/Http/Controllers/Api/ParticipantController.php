@@ -21,7 +21,7 @@ class ParticipantController extends Controller
      */
     public function index()
     {
-        $data = $this->participant->all();
+        $data = $this->participant::with(['user', 'events'])->get();
         return response()->json($data);
     }
 

@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = $this->user->all();
+        $data = $this->user::with(['events'])->get();
         return response()->json($data);
     }
 
